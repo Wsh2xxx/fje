@@ -1,7 +1,8 @@
 import leaf
 
+
 # 抽象工厂接口，提供 createLeaf() 和 createContainer() 方法。
-class AbstractFactory():
+class AbstractFactory:
     def __init__(self, icon=None):
         self.icon = self.set_icon(icon)
 
