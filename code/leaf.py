@@ -1,7 +1,16 @@
-import factory
 
+# 成分接口，包含draw()和add_child()方法
+class Component:
+    def __init__(self, a, b, c):
+        raise  NotImplementedError
 
-class Leaf(factory.Component):
+    def draw(self, ):
+        raise NotImplementedError
+
+    def add_child(self, child):
+        raise NotImplementedError
+
+class Leaf(Component):
     def __init__(self, name, icon=None, data=None):
         self.name = name
         self.data = data
@@ -18,7 +27,7 @@ class Leaf(factory.Component):
             else:
                 print("")
 
-class Container(factory.Component):
+class Container(Component):
     def __init__(self, name, level=0, icon=None):
         self.name = name
         self.icon = icon
@@ -40,7 +49,7 @@ class Container(factory.Component):
                 child.draw(indent + 1, i == len(self.children) - 1)
 
 
-class RecLeaf(factory.Component):
+class RecLeaf(Component):
     def __init__(self, name, icon, data=None):
         self.name = name
         self.data = data
@@ -53,7 +62,7 @@ class RecLeaf(factory.Component):
         print(line + '─' * (50 - len(line)) + '│')
 
 
-class RecContainer(factory.Component):
+class RecContainer(Component):
     def __init__(self, name, level=0, icon=None):
         self.name = name
         self.level = level

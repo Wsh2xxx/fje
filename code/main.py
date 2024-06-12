@@ -1,9 +1,6 @@
-import json
 import argparse
-import os
-import leaf
-import factory as fc
-import FunnyJsonExplorer as FJE
+import factory as fc, FunnyJsonExplorer as FJE
+
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Visualize JSON files in a tree-like structure.")
