@@ -1,3 +1,9 @@
+> 21307215王商雨萱
+
+Funny JSON Explorer（**FJE**），是一个JSON文件可视化的命令行界面小工具
+执行方法：在code目录下运行main.py -f <json file> -s <style> -i <icon family>
+
+
 <a name="MSP75"></a>
 ### UML类图
 ![UML](UML.png)
