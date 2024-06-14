@@ -1,5 +1,9 @@
 ## Funny JSON Explorer（**FJE**），是一个JSON文件可视化的命令行界面小工具
-> 
+> 此为使用迭代器+访问者模式reconstruct版本
+
+结果存放：/res1文件夹
+代码存放：/src文件夹
+UML类图：UML1.png
 
 实现语言：python(3.11), 无其他外部库
 
