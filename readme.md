@@ -13,24 +13,24 @@
 ### 结果截图
 <a name="CmMTj"></a>
 ##### tree style+default icon (no icon)
-![res1.png](res1/res1-1.png)
+![img_1.png](res1/1_1.png)
 <a name="vLmDk"></a>
 ##### tree style+poker icon
-![res2.png](res1/res1-3.png)
+![img.png](res1/1_2.png)
 <a name="fQexS"></a>
 ##### tree style+自定义 icon
-![res3.png](res/res1-2.png)
+![img.png](res1/1_3.png)
 > 写着玩新增功能，语法为-i "中间icon,叶icon"
 
 <a name="sBa6m"></a>
 ##### rectangle style + default icon(no icon)
-![image.png](res/res2-2.png)
+![img_1.png](res1/2_3.png)
 <a name="rQnBH"></a>
 ##### rectangle style + poker
-![image.png](res/res2-1.png)
+![img.png](res1/2_2.png)
 <a name="V0lUn"></a>
 ##### rectangle style + diy icon
-![image.png](res/res2-3.png)
+![img_1.png](res1/2_1.png)
 <a name="YpG7N"></a>
 ### 新增代码文件
 
