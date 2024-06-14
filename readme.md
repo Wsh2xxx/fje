@@ -1,15 +1,22 @@
+## Funny JSON Explorer（**FJE**），是一个JSON文件可视化的命令行界面小工具
+> 
+
+实现语言：python(3.11), 无其他外部库
+
+执行方法：在src目录下运行 `python main.py -f <json file> -s <style> -i <icon family>` 
+
 <a name="MSP75"></a>
 ### UML类图
-![UML](UML.png)
+![img.png](UML1.png)图中简化了TreeFactory和RectangleFactory,已经在上一实验中展开了
 
 <a name="lLBY5"></a>
 ### 结果截图
 <a name="CmMTj"></a>
 ##### tree style+default icon (no icon)
-![res1.png](res/res1-1.png)
+![res1.png](res1/res1-1.png)
 <a name="vLmDk"></a>
 ##### tree style+poker icon
-![res2.png](res/res1-3.png)
+![res2.png](res1/res1-3.png)
 <a name="fQexS"></a>
 ##### tree style+自定义 icon
 ![res3.png](res/res1-2.png)
@@ -25,53 +32,43 @@
 ##### rectangle style + diy icon
 ![image.png](res/res2-3.png)
 <a name="YpG7N"></a>
-### code文件结构
+### 新增代码文件
 
-- main.py
-   - 命令行指令处理函数
-   - 主函数
-      - 按指令创建树形/矩形树
-   - 执行入口
-- FunnyJsonExplorer.py
-   - load指令
-   - build_tree递归创建树
-   - 调用根的draw()作为绘图入口
-- factory.py
-   - 抽象工厂
-      - 解析icon
-      - 创建container，leaf函数
-   - TreeFactory/RectangleFactory
-      - 继承抽象工厂创建树形/矩形树，实现工厂模式
-- leaf.py
+- fje.py
+  - build_tree只负责树的container结构构建并记录层级信息
+  - show调用printVisitor的访问者实例访问并打印树，使用accept接口遍历
+- iterator.py
+  - 定义了迭代器，实现判断是否迭代完成和迭代功能
+  - 迭代container
+- visitor.py
+  - 定义了visitor基类和两个分别用于访问叶子和container结点的函数
+  - 实例化visitor为负责print的访问者print_visitor
+- container.py
    - component接口
-      - 提供add_child和draw功能接口
-   - leaf/RecLeaf类
-      - 树形/矩形叶子结点，实现了叶子的draw
-   - container/recontainer类
-      - 容器类，包含容器/叶，负责容器的draw
-<a name="swVVE"></a>
+      - 提供add_child、draw功能接口
+      - draw功能负责按格式构造输出的前缀和后缀，不再负责打印
+      - accept函数作为迭代器的接口，传递树的位置信息，
+   - accept
+     - 访问者访问叶/container的接口
+     - 使用迭代器迭代访问
+
+
 ### 设计模式分析
 <a name="sOr8o"></a>
-##### 工厂模式
-主要通过具体工厂类（如TreeFactory和RectangleFactory）实现，用于创建具体的Leaf和Container对象
+#### 迭代器模式：
+##### Iterator类作用
+- 封装了遍历的逻辑，使得visitor不需要知道container内部结构，通过 has_next()和 next()方法就能够访问容器的子元素
 
-- 优点：
-   -  封装了对象的创建过程
-   -  需要改变对象的创建逻辑或者添加新的对象类型时，只需修改或扩展工厂，提高了代码的可维护性。  
-<a name="ipXpf"></a>
-##### 抽象工厂模式
-TreeFactory和RectangleFactory都是AbstractFactory这一抽象工厂的实现。通过定义一个包含多个工厂方法的接口（AbstractFactory），允许创建一系列相关或依赖的对象，而无需指定它们具体的类。  
+#### 访问者模式：
+- PrintVisitor 类实现了 Visitor 接口
+- 定义了访问 Leaf 和 Container 对象的方法，在不修改元素类的情况下，能够方便地引入新的操作
+- 能够根据元素类型的不同执行不同的操作。 
 
-- 优点：
-   -  因为具体工厂类都实现自同一个接口， 方便客户端更换工厂
-   -  确保了一次只能使用来自同一产品族的对象，保证一致性
-<a name="CyTRM"></a>
-##### 组合模式
-Container由Leaf对象或其他Container对象组合而成。形成了树形结构
 
-- 优点：
-   - 保证组合对象调用上的一致性，减少代码量
-   - 灵活组织树的结构，方便新组件的设计
-<a name="PlnTu"></a>
-##### 建造者模式
+在Container中，使用迭代器来遍历所有树，并对每个子元素调用其 accept 方法，使得访问者能够访问整个对象结构并区分开容器和叶子节点。
+
+#### 优点
+- 扩展性：如果需要添加新的操作，只需增加新的访问者类，无需修改Component。
+- 数据管理和操作逻辑明确分开，符合单一职责原则。
+- 迭代器提供了一种标准的方法来遍历容器中的元素，不受容器内部结构的影响。
 
