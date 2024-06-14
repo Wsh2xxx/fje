@@ -1,4 +1,4 @@
-import leaf
+import container as leaf
 
 
 # 抽象工厂接口，提供 createLeaf() 和 createContainer() 方法。
@@ -9,7 +9,7 @@ class AbstractFactory:
     def create_container(self, name, level):
         raise NotImplementedError
 
-    def create_leaf(self, name, data):
+    def create_leaf(self, name, data, level):
         raise NotImplementedError
 
     def set_icon(self, icon):
@@ -28,12 +28,13 @@ class TreeFactory(AbstractFactory):
     def create_container(self, name, level):
         return leaf.Container(name, level, self.icon["container"])
 
-    def create_leaf(self, name, data):
-        return leaf.Leaf(name, self.icon["leaf"], data)
+    def create_leaf(self, name, data, level):
+        return leaf.Leaf(name, self.icon["leaf"], level, data)
+
 
 class RectangleFactory(AbstractFactory):
     def create_container(self, name, level):
         return leaf.RecContainer(name, level, self.icon["container"])
 
-    def create_leaf(self, name, data):
-        return leaf.RecLeaf(name, self.icon["leaf"], data)
+    def create_leaf(self, name, data, level):
+        return leaf.RecLeaf(name, self.icon["leaf"], level, data)
